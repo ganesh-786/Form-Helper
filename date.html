@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ad Date Validation</title>
+    <style>
+        .error {
+            color: red;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Advertisement Date Input</h2>
+    <form id="adForm">
+        <label for="adDate">Enter Ad Date (YYYY-MM-DD):</label>
+        <!-- The input is preset to "2025-12-14" -->
+        <input type="date" id="adDate" name="adDate" value="2025-12-14">
+        <span id="dateError" class="error"></span>
+    </form>
+
+    <script>
+        // Function to validate that the selected date is in the future
+        function validateDate() {
+            const dateInput = document.getElementById('adDate');
+            const errorSpan = document.getElementById('dateError');
+
+            // Create a Date object from the input value
+            const selectedDate = new Date(dateInput.value);
+
+            // Create a Date object for today's date and set time to midnight for an accurate comparison
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Compare dates: if selected date is not greater than today, display an error
+            if (selectedDate <= today) {
+                errorSpan.textContent = 'Please select a date after today.';
+            } else {
+                errorSpan.textContent = '';
+            }
+        }
+
+        // Attach the event listener for real-time validation as the user interacts with the date input
+        document.getElementById('adDate').addEventListener('input', validateDate);
+
+        // Run the check on initial page load in case the preset value needs to be validated
+        validateDate();
+    </script>
+</body>
+
+</html>

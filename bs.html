@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BS Date Validator</title>
+</head>
+
+<body>
+    <p>
+    <label>DOB: </label>
+    <input type="text" value="" name="date" class="bod-picker" placeholder="Select Date of Birth">
+    <button id="clear-bth" onclick="">Clear</button>
+</p>
+
+<!-- this should go after your </body> -->
+<script src="//code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script src="//unpkg.com/nepali-date-picker@2.0.2/dist/nepaliDatePicker.min.js"></script>
+<link rel="stylesheet" href="//unpkg.com/nepali-date-picker@2.0.2/dist/nepaliDatePicker.min.css">
+
+<script>
+        $(".bod-picker").nepaliDatePicker({
+            dateFormat: "%D, %M %d, %y",
+            closeOnDateSelect: true
+        });
+
+        $("#clear-bth").on("click", function (event) {
+            $(".bod-picker").val('');
+        });
+</script>
+</body>
+
+</html>

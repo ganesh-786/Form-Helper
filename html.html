@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Input Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Enter Date (YYYY-MM-DD)</h2>
+    <input type="text" id="dateInput" placeholder="2025-12-14" maxlength="10">
+    <p class="error" id="errorMessage"></p>
+
+    <script>
+        document.getElementById("dateInput").addEventListener("input", function () {
+            let input = this.value;
+            let errorMessage = document.getElementById("errorMessage");
+
+            // Regular expression to match "YYYY-MM-DD" format
+            let datePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+            let match = input.match(datePattern);
+
+            if (!match) {
+                errorMessage.textContent = "Date must be in YYYY-MM-DD format (e.g., 2025-12-14)";
+                return;
+            }
+
+            let year = parseInt(match[1], 10);
+            let month = parseInt(match[2], 10);
+            let day = parseInt(match[3], 10);
+
+            // Get today's date
+            let today = new Date();
+            let currentYear = today.getFullYear();
+            let currentMonth = today.getMonth() + 1;
+            let currentDay = today.getDate();
+
+            // Validate date parts
+            if (month < 1 || month > 12 || day < 1 || day > 31) {
+                errorMessage.textContent = "Invalid date!";
+                return;
+            }
+
+            // Ensure the entered date is not in the future
+            if (
+                year > currentYear ||
+                (year === currentYear && month > currentMonth) ||
+                (year === currentYear && month === currentMonth && day > currentDay)
+            ) {
+                errorMessage.textContent = "Date cannot be in the future!";
+                return;
+            }
+
+            errorMessage.textContent = ""; // Clear error if valid
+        });
+    </script>
+
+</body>
+
+</html>
